@@ -21,8 +21,10 @@ const server = http.createServer((req, res) => {
 			updated_at: new Date(),
 		})
 
-		return res.end('Criação de tarefa\n')
+		return res.writeHead(201).end()
 	}
+
+	return res.writeHead(404).end('Not found')
 
 })
 
