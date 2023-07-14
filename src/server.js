@@ -1,14 +1,27 @@
 import http from 'node:http'
 
+const tasks = []
+
 const server = http.createServer((req, res) => {
 	const { method, url } = req
 
 	if (method === 'GET' && url === '/tasks'){
-		return res.end('Listagem de tarefas\n');
+		return res
+			.setHeader('Content-type', 'application/json')
+			.end(JSON.stringify(tasks))
 	}
 
 	if (method === 'POST' && url === '/tasks'){
-		return res.end('Criação de tarefa\n');
+		tasks.push({
+			id: 1,
+			title: "Finish task-api",
+			description: "Implement the task-api using the previous lesson as reference",
+			completed_at: null,
+			created_at: new Date(),
+			updated_at: new Date(),
+		})
+
+		return res.end('Criação de tarefa\n')
 	}
 
 })
