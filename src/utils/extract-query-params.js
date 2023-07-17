@@ -2,10 +2,10 @@
 
 export function extractQueryParams(query) {
   return query.substr(1).split('&').reduce((queryParams, param) => {
-    const [key, value] = params.split('=')
+    const [key, value] = param.split('=')
 
-    queryParam[key] = value
+    queryParams[key] = value
 
     return queryParams
-  })
+  }, {})
 }
