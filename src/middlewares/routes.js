@@ -63,7 +63,7 @@ export const routes = [
       const [task] = database.select('tasks', { id })
 
       if (!task) {
-        return res.writeHead(404).end({ message: 'task not found' })
+        return res.writeHead(404).end(JSON.stringify({ message: 'task not found' }))
       }
 
       database.update('tasks', id, {
@@ -82,11 +82,7 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params
 
-      const [task] = database.select('tasks', { id })
-
-      if (!task) {
-        return res.writeHead(404).end({ message: 'task not found' })
-      }
+      
 
       database.toggle('tasks', id)      
       
