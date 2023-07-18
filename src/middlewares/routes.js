@@ -1,6 +1,7 @@
 import { Database } from "./database.js";
 import { randomUUID } from "node:crypto";
 import { buildRoutePath } from "../utils/build-route-path.js";
+import "../streams/import-csv.js"
 
 const database = new Database();
 
