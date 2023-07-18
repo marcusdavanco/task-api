@@ -1,7 +1,6 @@
 import { Database } from "./database.js";
 import { randomUUID } from "node:crypto";
 import { buildRoutePath } from "../utils/build-route-path.js";
-import "../streams/import-csv.js"
 
 const database = new Database();
 
@@ -26,6 +25,12 @@ export const routes = [
     path: buildRoutePath('/tasks'),
     handler: (req, res) => {
       const { title, description } = req.body
+
+      if (!title || !description) {
+        return res.writeHead(400).end(
+          JSON.stringify({ message: 'title and description are required' })
+        )
+      }
 		
 		
       const task = ({
@@ -48,6 +53,18 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params
       const { title, description } = req.body
+
+      if (!title || !description) {
+        return res.writeHead(400).end(
+          JSON.stringify({ message: 'title and description are required' })
+        )
+      }
+
+      const [task] = database.select('tasks', { id })
+
+      if (!task) {
+        return res.writeHead(404).end({ message: 'task not found' })
+      }
 
       database.update('tasks', id, {
         title,
