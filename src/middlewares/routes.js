@@ -50,8 +50,21 @@ export const routes = [
 
       database.update('tasks', id, {
         title,
-        description,
+        description,        
       })      
+      
+      return res
+        .writeHead(204)
+        .end()
+    }
+  },
+  {
+    method: 'PATCH',
+    path: buildRoutePath('/tasks/:id'),
+    handler: (req, res) => {
+      const { id } = req.params
+
+      database.toggle('tasks', id)      
       
       return res
         .writeHead(204)
